@@ -1,0 +1,41 @@
+<!doctype html>
+<html lang="id">
+<head>
+<meta charset="utf-8">
+<meta name="viewport" content="width=device-width,initial-scale=1">
+<title>KADENI'S NGANGKRING — Kritik & Saran</title>
+<style>
+*{box-sizing:border-box}body{margin:0;font-family:Arial,sans-serif;background:linear-gradient(135deg,#eef7ff,#fff);color:#102a43}
+.wrap{max-width:760px;margin:auto;padding:24px}
+.card{background:#fff;border-radius:28px;padding:32px;box-shadow:0 18px 50px #1234  }
+.logo{font-size:28px;font-weight:800;color:#1167d8}.sub{color:#6b7c93}
+label{display:block;font-weight:700;margin:20px 0 8px}
+input,select,textarea{width:100%;padding:15px;border:1px solid #ccd8e6;border-radius:14px;font-size:16px;outline:none}
+textarea{min-height:150px;resize:vertical}.anon{display:flex;gap:10px;align-items:center;margin:18px 0}.anon input{width:auto}
+button{width:100%;padding:16px;border:0;border-radius:15px;background:#1677e8;color:white;font-size:17px;font-weight:800;cursor:pointer}
+.success{display:none;margin-top:18px;padding:14px;border-radius:12px;background:#e9f7ef;color:#176b3a}
+</style>
+</head>
+<body>
+<div class="wrap"><div class="card">
+<div class="logo">👑 KADENI'S NGANGKRING</div>
+<h1>Kritik & Saran</h1>
+<p class="sub">Sampaikan pendapatmu untuk membantu kami menjadi lebih baik.</p>
+<form id="f">
+<label>Nama (Opsional)</label><input id="nama" placeholder="Masukkan nama kamu">
+<label>Kategori</label><select id="kategori"><option>Fasilitas</option><option>Pelayanan</option><option>Kebersihan</option><option>Menu</option><option>Lainnya</option></select>
+<label>Kritik / Saran</label><textarea id="pesan" required placeholder="Tulis kritik atau saran kamu di sini..."></textarea>
+<label class="anon"><input type="checkbox" id="anon"> Kirim secara anonim</label>
+<button>🚀 Kirim Masukan</button>
+</form>
+<div class="success" id="ok">Masukan berhasil dicatat di perangkat ini. Untuk menerima masukan dari banyak orang, hubungkan form ini ke database/admin panel.</div>
+</div></div>
+<script>
+document.getElementById('f').addEventListener('submit',e=>{
+ e.preventDefault();
+ const data={nama:document.getElementById('anon').checked?'Anonim':document.getElementById('nama').value,kategori:document.getElementById('kategori').value,pesan:document.getElementById('pesan').value,waktu:new Date().toISOString()};
+ const old=JSON.parse(localStorage.getItem('kadenis_saran')||'[]'); old.push(data); localStorage.setItem('kadenis_saran',JSON.stringify(old));
+ document.getElementById('ok').style.display='block'; e.target.reset();
+});
+</script>
+</body></html>
