@@ -1,41 +1,219 @@
 <!doctype html>
 <html lang="id">
 <head>
-<meta charset="utf-8">
-<meta name="viewport" content="width=device-width,initial-scale=1">
-<title>KADENI'S NGANGKRING — Kritik & Saran</title>
-<style>
-*{box-sizing:border-box}body{margin:0;font-family:Arial,sans-serif;background:linear-gradient(135deg,#eef7ff,#fff);color:#102a43}
-.wrap{max-width:760px;margin:auto;padding:24px}
-.card{background:#fff;border-radius:28px;padding:32px;box-shadow:0 18px 50px #1234  }
-.logo{font-size:28px;font-weight:800;color:#1167d8}.sub{color:#6b7c93}
-label{display:block;font-weight:700;margin:20px 0 8px}
-input,select,textarea{width:100%;padding:15px;border:1px solid #ccd8e6;border-radius:14px;font-size:16px;outline:none}
-textarea{min-height:150px;resize:vertical}.anon{display:flex;gap:10px;align-items:center;margin:18px 0}.anon input{width:auto}
-button{width:100%;padding:16px;border:0;border-radius:15px;background:#1677e8;color:white;font-size:17px;font-weight:800;cursor:pointer}
-.success{display:none;margin-top:18px;padding:14px;border-radius:12px;background:#e9f7ef;color:#176b3a}
-</style>
+  <meta charset="utf-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1">
+
+  <title>KADENI'S NGANGKRING — Kritik & Saran</title>
+
+  <style>
+    * {
+      box-sizing: border-box;
+    }
+
+    body {
+      margin: 0;
+      font-family: Arial, sans-serif;
+      background: #f1f5f9;
+      color: #172033;
+    }
+
+    .wrap {
+      max-width: 760px;
+      margin: auto;
+      padding: 24px 16px;
+    }
+
+    .card {
+      background: #fff;
+      border-radius: 28px;
+      padding: 28px 22px;
+      box-shadow: 0 10px 30px rgba(0,0,0,.08);
+    }
+
+    .logo {
+      font-size: 28px;
+      font-weight: 800;
+      color: #111827;
+      margin-bottom: 6px;
+    }
+
+    .subtitle {
+      color: #64748b;
+      margin-bottom: 25px;
+    }
+
+    label {
+      display: block;
+      font-weight: 700;
+      margin: 16px 0 7px;
+    }
+
+    input,
+    select,
+    textarea {
+      width: 100%;
+      padding: 14px;
+      border: 1px solid #cbd5e1;
+      border-radius: 12px;
+      font-size: 16px;
+      outline: none;
+      background: white;
+    }
+
+    input:focus,
+    select:focus,
+    textarea:focus {
+      border-color: #2563eb;
+      box-shadow: 0 0 0 3px rgba(37,99,235,.12);
+    }
+
+    textarea {
+      min-height: 160px;
+      resize: vertical;
+    }
+
+    button {
+      width: 100%;
+      margin-top: 22px;
+      padding: 16px;
+      border: 0;
+      border-radius: 14px;
+      background: #111827;
+      color: white;
+      font-size: 17px;
+      font-weight: 700;
+      cursor: pointer;
+    }
+
+    button:hover {
+      background: #2563eb;
+    }
+
+    .issues {
+      display: block;
+      margin-top: 12px;
+      padding: 14px;
+      text-align: center;
+      border-radius: 14px;
+      background: #f1f5f9;
+      color: #2563eb;
+      text-decoration: none;
+      font-weight: 700;
+    }
+
+    .info {
+      margin-top: 18px;
+      padding: 14px;
+      border-radius: 12px;
+      background: #eff6ff;
+      color: #1e40af;
+      font-size: 14px;
+      line-height: 1.5;
+    }
+  </style>
 </head>
+
 <body>
-<div class="wrap"><div class="card">
-<div class="logo">👑 KADENI'S NGANGKRING</div>
-<h1>Kritik & Saran</h1>
-<p class="sub">Sampaikan pendapatmu untuk membantu kami menjadi lebih baik.</p>
-<form id="f">
-<label>Nama (Opsional)</label><input id="nama" placeholder="Masukkan nama kamu">
-<label>Kategori</label><select id="kategori"><option>Fasilitas</option><option>Pelayanan</option><option>Kebersihan</option><option>Menu</option><option>Lainnya</option></select>
-<label>Kritik / Saran</label><textarea id="pesan" required placeholder="Tulis kritik atau saran kamu di sini..."></textarea>
-<label class="anon"><input type="checkbox" id="anon"> Kirim secara anonim</label>
-<button>🚀 Kirim Masukan</button>
-</form>
-<div class="success" id="ok">Masukan berhasil dicatat di perangkat ini. Untuk menerima masukan dari banyak orang, hubungkan form ini ke database/admin panel.</div>
-</div></div>
-<script>
-document.getElementById('f').addEventListener('submit',e=>{
- e.preventDefault();
- const data={nama:document.getElementById('anon').checked?'Anonim':document.getElementById('nama').value,kategori:document.getElementById('kategori').value,pesan:document.getElementById('pesan').value,waktu:new Date().toISOString()};
- const old=JSON.parse(localStorage.getItem('kadenis_saran')||'[]'); old.push(data); localStorage.setItem('kadenis_saran',JSON.stringify(old));
- document.getElementById('ok').style.display='block'; e.target.reset();
-});
-</script>
-</body></html>
+
+  <div class="wrap">
+    <div class="card">
+
+      <div class="logo">☕ KADENI'S NGANGKRING</div>
+
+      <div class="subtitle">
+        Kritik, saran, laporan masalah, atau ide untuk membuat tempat ini lebih baik.
+      </div>
+
+      <form id="issueForm">
+
+        <label for="nama">Nama</label>
+        <input
+          type="text"
+          id="nama"
+          placeholder="Masukkan nama kamu"
+          required
+        >
+
+        <label for="kategori">Kategori</label>
+        <select id="kategori" required>
+          <option value="Kritik">Kritik</option>
+          <option value="Saran">Saran</option>
+          <option value="Bug">Laporan Bug</option>
+          <option value="Ide">Ide / Masukan</option>
+        </select>
+
+        <label for="judul">Judul</label>
+        <input
+          type="text"
+          id="judul"
+          placeholder="Contoh: Tambahkan menu baru"
+          required
+        >
+
+        <label for="pesan">Kritik / Saran</label>
+        <textarea
+          id="pesan"
+          placeholder="Tuliskan kritik atau saran kamu di sini..."
+          required
+        ></textarea>
+
+        <button type="submit">
+          📩 Kirim Kritik & Saran
+        </button>
+
+      </form>
+
+      <a
+        class="issues"
+        href="https://github.com/oioibi/Kadenis-ngangkring/issues"
+        target="_blank"
+      >
+        📋 Lihat Semua Issues
+      </a>
+
+      <div class="info">
+        Setelah menekan tombol kirim, kamu akan diarahkan ke GitHub
+        untuk membuat Issue. Kamu tetap bisa mengecek dan mengubah isi
+        laporan sebelum mengirimkannya.
+      </div>
+
+    </div>
+  </div>
+
+  <script>
+    const form = document.getElementById("issueForm");
+
+    form.addEventListener("submit", function(event) {
+      event.preventDefault();
+
+      const nama = document.getElementById("nama").value.trim();
+      const kategori = document.getElementById("kategori").value;
+      const judul = document.getElementById("judul").value.trim();
+      const pesan = document.getElementById("pesan").value.trim();
+
+      const issueTitle =
+        `[${kategori}] ${judul}`;
+
+      const issueBody =
+`## ${kategori}
+
+**Nama:** ${nama}
+
+### Isi
+${pesan}
+
+---
+Dikirim melalui halaman KADENI'S NGANGKRING.`;
+
+      const url =
+        "https://github.com/oioibi/Kadenis-ngangkring/issues/new" +
+        "?title=" + encodeURIComponent(issueTitle) +
+        "&body=" + encodeURIComponent(issueBody);
+
+      window.open(url, "_blank");
+    });
+  </script>
+
+</body>
+</html>
